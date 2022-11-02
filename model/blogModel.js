@@ -24,7 +24,7 @@ const blogSchema = new Schema({
         type: Number
     },
     reading_time:{
-        type: Number
+        type: String
     },
     tags:{
         type: String

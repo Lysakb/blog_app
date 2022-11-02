@@ -5,14 +5,17 @@ require("dotenv").config();
 const userAuthenticate = async(req, res, next)=>{
     let token 
 
-    if(req.headers.authrorization && req.headers.authroization.startsWith('Bearer')){
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+    
         try{
-            token = req.headers.authrorization.split(" ")[1]
+            token = req.headers.authorization.split(" ")[1]
 
             const verifiedToken = jwt.verify(token, process.env.SECRET_TOKEN)
-
-            req.user = await user.findById(verifiedToken.id)
+            
+            req.user = await userModel.findById(verifiedToken.id)
+            
             next()
+    
         }catch(error){
             res.status(401).send('Not authorized')
         }

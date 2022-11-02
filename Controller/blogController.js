@@ -35,40 +35,20 @@ const createBlog = async(req, res, next)=>{
     }
 }
 
-const getAllBlogs = async (req, res, next) => {
+const getBlogById = async (req, res, next) => {
+        const id = req.params.id;
+
     try {
-        //pagination
-        const page = parseInt(req.query.page) || 0;
-        const limit = parseInt(req.query.limit) || 20;
-        // search by title, author and tags
-        let search = {};
-        if (req.query.author) {
-            search = { Author: req.query.author };
-        } else if (req.query.title) {
-            search = { Title: req.query.title };
-        } else if (req.query.tag) {
-            search = { Tags: req.query.tag };
-        }
+        const blog = await blogModel.findById(id)
+        // .where({ State: 'published' });
 
-        // getting al blogs from the database
-        const blogs = await blogModel
-            .find(search)
-            .where({ State: 'published' })
-            .sort({ Reading_Time: 1, Read_Count: -1, timestamps: -1 })
-            .skip(page * limit)
-            .limit(limit);
+        if (!blog)
+            return res.status(400).send({ message: 'No blog!' });
 
-        const count = await blogModel.countDocuments();
+        // singleBlog.Read_Count++;
+        const saveBlog = await blog.save();
 
-        if (blogs) {
-            res.status(200).send({
-                message: blogs,
-                totalPages: Math.ceil(count / limit),
-                currentPage: page,
-            });
-        } else {
-            res.status(404).send({ message: 'No Blog Found' });
-        }
+        res.status(200).send(blog);
     } catch (error) {
         next(error);
     }
