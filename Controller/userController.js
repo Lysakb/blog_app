@@ -8,7 +8,7 @@ require('dotenv').config();
 const userSignup = async(req, res) =>{
     const {first_name, last_name, email, password, username} = req.body
 
-    if(!(first_name & last_name & email & password & username)){
+    if(!first_name & !last_name & !email & !password & !username){
         return res.status(400).send({message:"Please fill in the field"})
     }
 
