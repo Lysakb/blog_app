@@ -1,5 +1,6 @@
-const express = require('express');
+
 const mongoose = require("mongoose");
+const paginate = require("mongoose-paginate-v2")
 const Schema = mongoose.Schema;
 
 const blogSchema = new Schema({
@@ -43,6 +44,7 @@ const blogSchema = new Schema({
 
     {timestamp: true}
 )
+
 
 
 const blog = mongoose.model("blog", blogSchema);

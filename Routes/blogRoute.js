@@ -10,7 +10,7 @@ blogRoute.get('/get', getBlog);
 blogRoute.get('/get/:id', getBlogById);
 blogRoute.put('/update/:id', userAuthenticate, updateBlogById);
 blogRoute.delete('/delete/:id', userAuthenticate, deleteBlogById);
-blogRoute.get('/:id', blogByUser)
+blogRoute.get('/userblog', userAuthenticate, blogByUser)
 
 
 module.exports = blogRoute;

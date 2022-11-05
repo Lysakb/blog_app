@@ -35,15 +35,39 @@ const createBlog = async(req, res, next)=>{
 }
 
 const getBlog = async(req, res, next)=>{
-    
+        // pagination
+         const page = parseInt(req.query.page) || 0;
+         const limit = parseInt(req.query.limit) || 20;
+
+         let search = {};
+        if(req.query.author){
+            search = {author: req.query.author}
+        }  
+        else if(req.query.title){
+            search = {title: req.query.title}
+        }
+        else if(req.query.tags){
+            search = {tags: req.query.tags}
+        }
+                
     try{
-        const blog = await blogModel.find().where({ state: 'published' })
-       
+        const blog = await blogModel.find(search).where({ state: 'published' })
+        .sort({read_count: 1, reading_time: 1, timestamp: 1})
+        .skip(page*limit)
+        .limit(limit)
+
+
+        const count = await blogModel.countDocuments();
+
         if(!blog){
             res.status(404).send({message:"No blog found!"})
         }
 
-        res.status(200).send(blog);
+        res.status(200).send({
+                blog: blog,
+                totalPages: Math.ceil(count/limit),
+                currentPage: Page
+        });
 
     }
     
@@ -80,6 +104,7 @@ const updateBlogById = async (req, res, next) => {
     try {
     
         const blog = await blogModel.findById(id);
+        console.log(blog)
 
         if (user.id === blog.user.toString()) {
             const blogUpdate = await blogModel.findByIdAndUpdate(id, 
@@ -142,10 +167,23 @@ const deleteBlogById = async (req, res, next) => {
 const blogByUser = async (req, res, next) => {
     try {
         const user = req.user;
+        const page = parseInt(req.query.page) || 0;
+        const limit = parseInt(req.query.limit) || 20;
 
-        const blogUser = await userModel.findById(user.id);
+        let search = {};
+        if(req.query.state){
+            search = { state: req.query.state}
+        };
 
-        res.status(200).send(blogUser);
+        const blogUser = await userModel.findById(user.id).where(search).populate("article").skip(page*limit).limit(limit);
+        const count = await blogModel.countDocuments();
+
+        res.status(200).send({
+            blogUser: blogUser.article,
+            totalPages: Math.ceil(count/limit),
+            currentPage: Page
+         });
+
     } catch (error) {
         res.status(400).send(error.message)
     }
