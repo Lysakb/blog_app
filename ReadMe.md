@@ -64,7 +64,7 @@ SETUP
   "password": "Eli"  
 }
 ``
-# BLOG-MODEL
+### BLOG-MODEL
 
 ### Create blog
 
@@ -108,6 +108,7 @@ SETUP
 - Method: GET
 - Header - Authorization: Bearer {token}
 
+---
 
 ### Contributor
 - ELIZABETH BOROKINNI
