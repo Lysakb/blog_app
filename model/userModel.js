@@ -25,12 +25,6 @@ const userSchema = new Schema({
         required: true
     },
 
-    username:{
-        type: String,
-        required: true,
-        unique: true
-    },
-
     article: [
         {
             type: mongoose.Schema.Types.ObjectId,

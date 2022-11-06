@@ -6,9 +6,9 @@ require('dotenv').config();
 // code for registering the user import to the route and to the app.js
 
 const userSignup = async(req, res) =>{
-    const {first_name, last_name, email, password, username} = req.body
+    const {first_name, last_name, email, password} = req.body
 
-    if(!first_name & !last_name & !email & !password & !username){
+    if(!first_name & !last_name & !email & !password){
         return res.status(400).send({message:"Please fill in the field"})
     }
 
@@ -17,8 +17,7 @@ const userSignup = async(req, res) =>{
             first_name: first_name,
             last_name: last_name,
             email: email,
-            password: password,
-            username: username
+            password: password
         })
         res.status(200).send({message: "user created successfully!", user})
     }
