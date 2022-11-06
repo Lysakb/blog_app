@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const {readingTime} = require('../helper/helper');
 require("dotenv").config();
 
+// Creating blog
 const createBlog = async(req, res, next)=>{
     const {title, description, author, tags, body} = req.body;
 
@@ -23,6 +24,7 @@ const createBlog = async(req, res, next)=>{
                 user: userBlog._id,
         })
 
+        // Saving the blog
         const saveBlog = await blog.save();
 
         userBlog.article = userBlog.article.concat(saveBlog._id);
@@ -34,24 +36,30 @@ const createBlog = async(req, res, next)=>{
     }
 }
 
+// Getting all blogs created
 const getBlog = async(req, res, next)=>{
+
         // pagination
          const page = parseInt(req.query.page) || 0;
          const limit = parseInt(req.query.limit) || 20;
 
+         // searching blog by author
          let search = {};
         if(req.query.author){
             search = {author: req.query.author}
         }  
+        // searching blog by title
         else if(req.query.title){
             search = {title: req.query.title}
         }
+        // searching blog by tags
         else if(req.query.tags){
             search = {tags: req.query.tags}
         }
                 
     try{
         const blog = await blogModel.find(search).where({ state: 'published' })
+        // orderable by read_count, reading_time and timestamp
         .sort({read_count: 1, reading_time: 1, timestamp: 1})
         .skip(page*limit)
         .limit(limit)
@@ -77,7 +85,7 @@ const getBlog = async(req, res, next)=>{
     
 }
 
-
+//getting blogs by id
 const getBlogById = async (req, res, next) => {
         const id = req.params.id;
 
@@ -96,6 +104,7 @@ const getBlogById = async (req, res, next) => {
     }
 };
 
+// updating blog by id
 const updateBlogById = async (req, res, next) => {
     const id = req.params.id;
     const user = req.user;
@@ -131,6 +140,7 @@ const updateBlogById = async (req, res, next) => {
     }
 };
 
+//deleting blogs by id
 const deleteBlogById = async (req, res, next) => {
     const id = req.params.id;
     const user = req.user
@@ -163,13 +173,14 @@ const deleteBlogById = async (req, res, next) => {
     }
 };
 
-
+//getting user blog
 const blogByUser = async (req, res, next) => {
     try {
         const user = req.user;
         const page = parseInt(req.query.page) || 0;
         const limit = parseInt(req.query.limit) || 20;
 
+        // filterable by state
         let search = {};
         if(req.query.state){
             search = { state: req.query.state}
