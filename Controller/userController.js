@@ -3,7 +3,7 @@ const userModel = require('../model/userModel');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
-// code for registering the user import to the route and to the app.js
+// code for sign up and login of users
 
 const userSignup = async(req, res) =>{
     const {first_name, last_name, email, password} = req.body
