@@ -17,7 +17,7 @@ SETUP
 
 
 
-# user model
+### user model
 | field  |  data_type | constraints  |
 |---|---|---|
 |  firstname | string  |  required |
@@ -27,7 +27,7 @@ SETUP
 
 
 
-# blog model
+### blog model
 | field  |  data_type | constraints  |
 |---|---|---|
 |  title |  string |  required |
@@ -39,75 +39,75 @@ SETUP
 |  body |  string |  required |
 |  tags |  string |  required |
 
-# user-signup
+### user-signup
 
-Route: /user/signup
-Method: POST
-Body: 
-`
+- Route: /user/signup
+- Method: POST
+- Body: 
+``
 {
   "first_name": "Elizabeth",
   "last_name": "Borokinni",
   "email": "Elizabeth@gmail.com",
   "password": "Eli"
 }
-`
+``
 
-# user-login 
+### user-login 
 
-Route: /user/login
-Method: POST
-Body: 
-`
+- Route: /user/login
+- Method: POST
+- Body: 
+``
 {
   "email": "Elizabeth@gmail.com",
   "password": "Eli"  
 }
-`
+``
 # BLOG-MODEL
 
-# Create blog
+### Create blog
 
-Route: /blog/create
-Method: POST
-Header - Authorization: Bearer {token}
-
----
-
-# Get blog >> get all blogs
-
-Route: /blog/get
-Method: GET
+- Route: /blog/create
+- Method: POST
+- Header - Authorization: Bearer {token}
 
 ---
 
-# Get blog by id >> get a particular blog
+### Get blog >> get all blogs
 
-Route: /blog/get/:id
-Method: GET
-
-# Update blog by id
-
-Route: /blog/update/:id
-Method: PUT
-Header - Authorization: Bearer {token}
+- Route: /blog/get
+- Method: GET
 
 ---
 
-# Delete blog by id
+### Get blog by id >> get a particular blog
 
-Route: /blog/delete/:id
-Method: DELETE
-Header - Authorization: Bearer {token}
+- Route: /blog/get/:id
+- Method: GET
+
+### Update blog by id
+
+- Route: /blog/update/:id
+- Method: PUT
+- Header - Authorization: Bearer {token}
 
 ---
 
-# Get user blog 
+### Delete blog by id
 
-Route: /blog/userblog
-Method: GET
-Header - Authorization: Bearer {token}
+- Route: /blog/delete/:id
+- Method: DELETE
+- Header - Authorization: Bearer {token}
+
+---
+
+### Get user blog 
+
+- Route: /blog/userblog
+- Method: GET
+- Header - Authorization: Bearer {token}
 
 
-# Contributor
+### Contributor
 - ELIZABETH BOROKINNI
