@@ -1,5 +1,6 @@
 const express = require('express');
 const rateLimit = require("express-rate-limit");
+const helmet = require("helmet")
 const userRoute = require("./Routes/userRoute");
 const blogRoute = require("./Routes/blogRoute");
 
@@ -18,6 +19,8 @@ const limiter = rateLimit({
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(limiter);
+
+app.use(helmet())
 
 app.use('/user', userRoute);
 app.use("/blog", blogRoute);
