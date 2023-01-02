@@ -110,5 +110,10 @@ SETUP
 
 ---
 
+###Rate Limiting
+
+- This is to limit the number of times a request is made to the server. This is to enable proper functioning of the server  
+
+---
 ### Contributor
 - ELIZABETH BOROKINNI
