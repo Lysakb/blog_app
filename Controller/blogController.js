@@ -1,7 +1,7 @@
 const userModel = require('../model/userModel');
 const blogModel = require('../model/blogModel');
 const jwt = require("jsonwebtoken");
-const {readingTime} = require('../helper/helper');
+const {readingTime} = require('../ReadingTime/ReadingTime');
 require("dotenv").config();
 
 // Creating blog

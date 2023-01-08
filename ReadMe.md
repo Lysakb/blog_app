@@ -9,6 +9,8 @@ REQUIREMENTS
 6. Blog owners should be able to update blog to published state, edit and delete blog in any state.
 7. Blogs are paginated to 20 blogs per page and searchable by author, title and tags.
 8. Reading_time is calculated for each blog. 
+9. Rate limiting which reduces the number of times a request is made to enable proper functioning of the server
+10. Security measures is added
 
 SETUP
 1. Install dependencies
